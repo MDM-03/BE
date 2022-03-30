@@ -2,15 +2,17 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const schema = new mongoose.Schema(
   {
-    Name: {
-      type: String,
-    },
+    _id: { type: Schema.Types.ObjectId },
     Relative: [
       {
         type: Schema.Types.ObjectId,
         ref: "Relative",
       },
     ],
+    Name: {
+      type: String,
+    },
+    Email: { type: String },
     PhoneNumber: {
       type: String,
     },

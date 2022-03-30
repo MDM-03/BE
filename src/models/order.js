@@ -1,0 +1,18 @@
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+const schema = new mongoose.Schema(
+  {
+    _id: { type: Schema.Types.ObjectId },
+    Price: { type: String },
+    Customer: { type: Schema.Types.ObjectId, ref: "Customer" },
+    RegisterAppointment: {
+      type: Schema.Types.ObjectId,
+      ref: "RegisterAppointment",
+    },
+    Vaccine: { type: Schema.Types.ObjectId, ref: "Vaccine" },
+  },
+  {
+    collection: "Order",
+  },
+);
+module.exports = mongoose.model("Order", schema);

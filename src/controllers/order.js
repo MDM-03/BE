@@ -5,7 +5,7 @@ const order = require("../models/order");
 const { StatusCodes } = require("http-status-codes");
 
 class OrderController {
-  async Detail(req, res) {
+  async List(req, res) {
     try {
       let data = await order
         .find()
@@ -13,6 +13,24 @@ class OrderController {
       return res.status(StatusCodes.OK).send({ data: data });
     } catch (err) {
       res.status(StatusCodes.NOT_FOUND).send("Server error");
+      console.log(err);
+      return err;
+    }
+  }
+  async Update(req, res) {
+    try {
+      const body = req.body;
+      const ID = req.params.id;
+      const key = Object.keys(body);
+      const data = order.findById({ _id: ID });
+      if (!data) {
+        return res.status(StatusCodes.NOT_FOUND).send("Not found order");
+      }
+      key.foreach((update) => (data[update] = body[update]));
+      await data.save();
+      return res.status(StatusCodes.OK).send(data);
+    } catch (err) {
+      res.status(StatusCodes.BAD_REQUEST).send("Server error");
       console.log(err);
       return err;
     }

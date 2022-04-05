@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 const schema = new mongoose.Schema(
   {
     Price: { type: String },
+    Status: { type: String },
     Customer: { type: Schema.Types.ObjectId, ref: "Customer" },
     RegisterAppointment: {
       type: Schema.Types.ObjectId,

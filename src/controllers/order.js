@@ -24,12 +24,14 @@ class OrderController {
       const key = Object.keys(body);
       const data = await order.findById(ID);
       //.populate("Vaccine Customer RegisterAppointment");
+
+      console.log(req.body);
       if (!data) {
         return res.status(StatusCodes.NOT_FOUND).send("Not found order");
       }
       key.forEach((update) => (data[update] = body[update]));
       await data.save();
-      console.log(await data.save());
+      // console.log(await data.save());
       return res.status(StatusCodes.OK).send(data);
     } catch (err) {
       res.status(StatusCodes.BAD_REQUEST).send("Server error");

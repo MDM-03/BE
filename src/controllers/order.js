@@ -1,4 +1,5 @@
 const vaccine = require("../models/vaccine");
+const vaccine_mysql = require("../models/vaccine_mysql");
 const customer = require("../models/customer");
 const register = require("../models/registerappointment");
 const order = require("../models/order");
@@ -10,6 +11,24 @@ class OrderController {
       let data = await order
         .find()
         .populate("Vaccine Customer RegisterAppointment");
+      return res.status(StatusCodes.OK).send({ data: data });
+    } catch (err) {
+      res.status(StatusCodes.NOT_FOUND).send("Server error");
+      console.log(err);
+      return err;
+    }
+  }
+  async create(req, res) {
+    try {
+      let data = new order(req.body);
+      console.log(data);
+      const id = req.body.Pack;
+      const vaccine = await vaccine_mysql.getVaccineByPack(id);
+      const pack = await vaccine_mysql.getPackById(id);
+      console.log(vaccine);
+      data.Pack.NAMEPACK = pack[0].NAMEPACK;
+      data.Pack.Vaccine = vaccine;
+      await data.save();
       return res.status(StatusCodes.OK).send({ data: data });
     } catch (err) {
       res.status(StatusCodes.NOT_FOUND).send("Server error");

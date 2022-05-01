@@ -44,6 +44,7 @@ class CustomerController {
   async Assign(req, res) {
     try {
       const data = new customer(req.body);
+      await data.save();
       console.log(await data.save());
       return res.status(StatusCodes.OK).send(data);
     } catch (err) {

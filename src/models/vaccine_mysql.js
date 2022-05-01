@@ -14,10 +14,34 @@ const vaccine = {
       return err;
     }
   },
+  async getPackById(id) {
+    try {
+      const data = await query.query(
+        `select NAMEPACK from vaccine_pack where _IDPACK = ?`,
+        [id],
+      );
+      return data[0];
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  },
+  async getById(id) {
+    try {
+      const data = await query.query(
+        `select NAMEVACCINE,SOURCE,PRICE,PREVENTION from vaccine where _IDVACCINE = ?`,
+        [id],
+      );
+      return data[0];
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  },
   async getVaccineByPack(id) {
     try {
       const data = await query.query(
-        `select vc.NAMEVACCINE,vc.PREVENTION,vc.PRICE,vc.QUANTITY,vc.SOURCE from (vaccine as vc join pack_detail as vpack on vc._IDVACCINE=vpack._IDVACCINE) join vaccine_pack as pack on pack._IDPACK = vpack._IDPACK where pack._IDPACK = ?`,
+        `select vc.NAMEVACCINE,vc.PREVENTION,vc.PRICE,vc.SOURCE from (vaccine as vc join pack_detail as vpack on vc._IDVACCINE=vpack._IDVACCINE) join vaccine_pack as pack on pack._IDPACK = vpack._IDPACK where pack._IDPACK = ?`,
         [id],
       );
       return data[0];

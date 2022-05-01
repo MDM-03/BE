@@ -28,6 +28,8 @@
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.8",
+    "mysql2": "^2.3.3",
+    "neo4j-driver": "^4.4.5",
     "prettier": "^2.6.1",
     "redis": "^4.0.4"
   },

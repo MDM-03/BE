@@ -11,6 +11,7 @@ const schema = new mongoose.Schema(
     },
     Pack: {
       NAMEPACK: { type: String },
+      TOTALPRICE: { type: Number },
       Vaccine: { type: Object },
     },
   },

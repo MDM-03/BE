@@ -17,7 +17,7 @@ const vaccine = {
   async getPackById(id) {
     try {
       const data = await query.query(
-        `select NAMEPACK from vaccine_pack where _IDPACK = ?`,
+        `select NAMEPACK,TOTALPRICE from vaccine_pack where _IDPACK = ?`,
         [id],
       );
       return data[0];

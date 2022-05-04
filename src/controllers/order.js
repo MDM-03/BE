@@ -26,6 +26,7 @@ class OrderController {
       const vaccine = await vaccine_mysql.getVaccineByPack(id);
       const pack = await vaccine_mysql.getPackById(id);
       console.log(vaccine);
+      data.Pack.TOTALPRICE = pack[0].TOTALPRICE;
       data.Pack.NAMEPACK = pack[0].NAMEPACK;
       data.Pack.Vaccine = vaccine;
       await data.save();

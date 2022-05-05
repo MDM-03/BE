@@ -43,8 +43,6 @@ class OrderController {
       const ID = req.params.id;
       const key = Object.keys(body);
       const data = await order.findById(ID);
-      //.populate("Vaccine Customer RegisterAppointment");
-
       console.log(req.body);
       if (!data) {
         return res.status(StatusCodes.NOT_FOUND).send("Not found order");
@@ -87,7 +85,6 @@ class OrderController {
       data.Pack.NAMEPACK = pack[0].NAMEPACK;
       data.Pack.Vaccine = vaccine;
       await data.save();
-      // console.log(await data.save());
       return res.status(StatusCodes.OK).send(data);
     } catch (err) {
       res.status(StatusCodes.BAD_REQUEST).send("Server error");

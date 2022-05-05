@@ -5,6 +5,7 @@ const customer = require("../routes/customer");
 const vaccine = require("../routes/vaccine");
 const order = require("../routes/order");
 const appointment = require("../routes/appointment");
+const healthrecord = require("../routes/healthrecord");
 const neo4j = require("../routes/neo4j");
 function route(app) {
   app.use("/category", category);
@@ -13,5 +14,6 @@ function route(app) {
   app.use("/order", order);
   app.use("/appointment", appointment);
   app.use("/neo4j", neo4j);
+  app.use("/healthrecord", healthrecord);
 }
 module.exports = route;

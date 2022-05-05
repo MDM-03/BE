@@ -10,7 +10,7 @@ class OrderController {
     try {
       let data = await order
         .find()
-        .populate("Vaccine Customer RegisterAppointment");
+        .populate("Customer RegisterAppointment");
       return res.status(StatusCodes.OK).send({ data: data });
     } catch (err) {
       res.status(StatusCodes.NOT_FOUND).send("Server error");
@@ -50,6 +50,42 @@ class OrderController {
         return res.status(StatusCodes.NOT_FOUND).send("Not found order");
       }
       key.forEach((update) => (data[update] = body[update]));
+      const id = req.body.Pack;
+      const vaccine = await vaccine_mysql.getVaccineByPack(id);
+      const pack = await vaccine_mysql.getPackById(id);
+      console.log(vaccine);
+      data.Pack.TOTALPRICE = pack[0].TOTALPRICE;
+      data.Pack.NAMEPACK = pack[0].NAMEPACK;
+      data.Pack.Vaccine = vaccine;
+      await data.save();
+      // console.log(await data.save());
+      return res.status(StatusCodes.OK).send(data);
+    } catch (err) {
+      res.status(StatusCodes.BAD_REQUEST).send("Server error");
+      console.log(err);
+      return err;
+    }
+  }
+  async UpdateByAppointmentId(req, res) {
+    try {
+      const body = req.body;
+      const ID = req.params.id;
+      const key = Object.keys(body);
+      const data = await order.findOne({RegisterAppointment: ID});
+      //.populate("Vaccine Customer RegisterAppointment");
+
+      console.log(req.body);
+      if (!data) {
+        return res.status(StatusCodes.NOT_FOUND).send("Not found order");
+      }
+      // key.forEach((update) => (data[update] = body[update]));
+      const id = req.body.Pack;
+      const vaccine = await vaccine_mysql.getVaccineByPack(id);
+      const pack = await vaccine_mysql.getPackById(id);
+      console.log(vaccine);
+      data.Pack.TOTALPRICE = pack[0].TOTALPRICE;
+      data.Pack.NAMEPACK = pack[0].NAMEPACK;
+      data.Pack.Vaccine = vaccine;
       await data.save();
       // console.log(await data.save());
       return res.status(StatusCodes.OK).send(data);

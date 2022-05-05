@@ -3,7 +3,7 @@ const Relative = require("../models/relative");
 const { StatusCodes } = require("http-status-codes");
 
 class CustomerController {
-  async Líst(req, res) {
+  async List(req, res) {
     try {
       let data = await customer.find({}).populate("Relative");
       return res.status(StatusCodes.OK).send({ data: data });

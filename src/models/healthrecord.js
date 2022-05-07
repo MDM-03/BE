@@ -5,9 +5,9 @@ const schema = new mongoose.Schema(
     customer: { type: Schema.Types.ObjectId, ref: "Customer" },
     record: [
       {
-        Doctor: { type: Schema.Types.ObjectId, ref: "Doctor" },
+        Doctor: { type: Object },
         Diagnostic: { type: String },
-        Vaccine: { type: String },
+        Vaccine: { type: Object },
         DayInject: { type: Date },
         Status: { type: String },
       },

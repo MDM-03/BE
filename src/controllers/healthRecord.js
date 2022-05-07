@@ -1,6 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
 const HealthRecord = require("../models/healthrecord");
 const customer = require("../models/customer");
+const doctor = require("../models/doctor");
+const vaccine = require("../models/vaccine");
 
 class healthController {
   async List(req, res) {
@@ -27,6 +29,7 @@ class healthController {
   async Create(req, res) {
     try {
       let data = new HealthRecord(req.body);
+      console.log(data);
       await data.save();
       return res.status(StatusCodes.OK).send({ data: data });
     } catch (err) {

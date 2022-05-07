@@ -22,6 +22,15 @@ class VaccineController {
       return err;
     }
   }
+  async VaccineById(req, res) {
+    try {
+      let data = await vaccine_mysql.getById(req.params.id);
+      return res.status(StatusCodes.OK).send({ vaccine: data });
+    } catch (err) {
+      res.status(StatusCodes.NOT_FOUND).send("Server error");
+      return err;
+    }
+  }
   async VaccineByPack(req, res) {
     try {
       let data = await vaccine_mysql.getVaccineByPack(req.params.id);
